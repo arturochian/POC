@@ -55,32 +55,18 @@ shinyServer(function(input, output,session) {
                            label: { color: '#871b47' } }}"))
     }) 
   })
-
-
-  output$opngdview3 <- renderGvis({
-    gvisMotionChart(data2, idvar='OPN', timevar='Date')
-    
-  })
-  
-  output$myChart <- renderChart({
-    names(iris) = gsub("\\.", "", names(iris))
-    p1 <- rPlot(input$x, input$y, data = iris, color = "Species", 
-                facet = "Species", type = 'point')
-    p1$addParams(dom = 'myChart')
-    return(p1)
-  })
-  
   
   output$p2 <- renderChart2({
     p2 <- rCharts$new()
     p2$setLib('libraries/widgets/parcoords')
-    p2$set(padding = list(top = 24, left = 0, bottom = 12, right = 50))
+    p2$set(padding = list(top = 24, left = 100, bottom = 12, right = 50))
     p2$set(
       data = toJSONArray(cars, json = F), 
       colorby = input$colorby, 
       range = range(cars[[input$colorby]]),
       colors = c('steelblue', 'brown'),
-      width = 300
+      width = 1400,
+      height = 900
     )
     p2
   })
@@ -92,47 +78,5 @@ shinyServer(function(input, output,session) {
   })
   
   #===
-  
-  updateData <- reactive({
-      inFile <- input$file1    
-      if (is.null(inFile)) {return(NULL)}    
-      uploadeddata <- read.csv(inFile$datapath, header = input$header,sep = input$sep) 
-  })
-  
-  fetchCol <- reactive({
-      colList <- colnames(updateData())
-  })
-  
-  observe({
-      var_A <- fetchCol()
-      updateCheckboxGroupInput(session, 'SelectCol',choices = var_A,select = var_A)
-      
-  })
-  
-  output$contents <- renderTable({
-    dat <- updateData()
-    if(input$goButton2)
-    {
-      src <<- dat[,input$SelectCol]
-    }
-    head(src,10)
-  })
-  
-  output$joined <- renderTable({
-    if(input$goButton3)
-    {
-      newdata <<- merge(x = src, y = DIM, by.x = 'DEMAND_ITEM', by.y = 'OARSPartName', all.x=TRUE)
-      head(newdata,5)
-    }
-  })
-  
-  output$downloadData <- downloadHandler(
-    filename = function() {
-      paste('transformed.csv', sep='\t')
-    },
-    content = function(file) {
-      write.csv(newdata, file, row.names=FALSE)
-    }
-  )
   #===
 })

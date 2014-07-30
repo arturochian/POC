@@ -1,12 +1,12 @@
 {
-    "contents" : "library(plyr)\nlibrary(rCharts)\nlibrary(dplyr)\nlibrary(stringr)\nlibrary(shiny)\nlibrary(googleVis)\nlibrary(RODBC)\n\noptions(shiny.maxRequestSize=25*1024^2)\noptions(stringsAsFactors=FALSE)\n#options(shiny.reactlog=TRUE)\n\nsuppressPackageStartupMessages(library(googleVis))\n\nload.csv <- function (filename,foldername = NULL) {\n  #assumption csv always comes with header\n  filetype <- '.csv'\n  df <- data.frame()\n  if(!is.null(foldername)){\n    foldername <- paste0(foldername,'/')\n  }\n  str <- paste(foldername,filename,filetype,sep='')\n  headset <- read.csv(str, nrows = 10)\n  classes <- sapply(headset,class)\n  df <- read.csv(str,stringsAsFactors=FALSE,colClasses=classes,strip.white=TRUE)\n  return(df)\n}\n\n\n\ndat <<- load.csv('ps','data')\ndata2 <<- load.csv('demandchange','data')\ndata2$Date <- as.Date(data2$Date, format='%m/%d/%Y')\nsrc <- data.frame()\n\n\n\n#values <- reactiveValues()\n#tags$head(tags$script(src = 'http://d3js.org/d3.v3.min.js')),",
+    "contents" : "library(plyr)\nlibrary(rCharts)\nlibrary(shiny)\nlibrary(googleVis)\n\noptions(shiny.maxRequestSize=25*1024^2)\noptions(stringsAsFactors=FALSE)\n#options(shiny.reactlog=TRUE)\n\nsuppressPackageStartupMessages(library(googleVis))\n\nload.csv <- function (filename,foldername = NULL) {\n  #assumption csv always comes with header\n  filetype <- '.csv'\n  df <- data.frame()\n  if(!is.null(foldername)){\n    foldername <- paste0(foldername,'/')\n  }\n  str <- paste(foldername,filename,filetype,sep='')\n  headset <- read.csv(str, nrows = 10)\n  classes <- sapply(headset,class)\n  df <- read.csv(str,stringsAsFactors=FALSE,colClasses=classes,strip.white=TRUE)\n  return(df)\n}\n\n\n\ndat <<- load.csv('ps','data')\ndata2 <<- load.csv('demandchange','data')\ndata2$Date <- as.Date(data2$Date, format='%m/%d/%Y')\nsrc <- data.frame()\n\n\n\n#values <- reactiveValues()\n#tags$head(tags$script(src = 'http://d3js.org/d3.v3.min.js')),",
     "created" : 1406669714175.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2490820667",
+    "hash" : "376738028",
     "id" : "F264F312",
-    "lastKnownWriteTime" : 1406669856,
+    "lastKnownWriteTime" : 1406728711,
     "path" : "C:/R/POC/global.R",
     "project_path" : "global.R",
     "properties" : {

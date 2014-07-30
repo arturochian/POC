@@ -1,10 +1,7 @@
 library(plyr)
 library(rCharts)
-library(dplyr)
-library(stringr)
 library(shiny)
 library(googleVis)
-library(RODBC)
 
 options(shiny.maxRequestSize=25*1024^2)
 options(stringsAsFactors=FALSE)
