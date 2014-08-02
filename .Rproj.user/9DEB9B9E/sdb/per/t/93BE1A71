@@ -1,0 +1,16 @@
+{
+    "contents" : "#this code alone will work\n# \n# ui <- bootstrapPage(\n#   selectInput('colorby', 'Color By', c('economy', 'displacement')),\n#   chartOutput('p2', 'libraries/widgets/parcoords')\n# )\n\nshinyUI(fluidPage(\n  navbarPage(\"R Shiny + GoogleVis Proof of Concept\",\n    tabPanel(\"Vis Examples\",\n                 tabsetPanel(\n                   tabPanel('Gvis Sankey',sidebarLayout(               \n                    sidebarPanel(\n                                selectizeInput(\"psf\", \"Choose a dataset:\", choices = c('',unique(dat$ProductSubFamily))),\n                                selectizeInput(\"opn\", \"Choose OPN:\", choices = c(''),multiple = TRUE),\n                                actionButton(\"goButton\", \"Go!\")\n                              ),\n                              mainPanel(htmlOutput('opngdview'))\n                              )\n                    ),\n                   tabPanel('rChart', bootstrapPage(\n                     selectInput('colorby', 'Color By', c('economy', 'displacement')),\n                     chartOutput('p2', 'libraries/widgets/parcoords')\n                   )\n                   )\n                 ) \n          \n    )\n  )\n\n))",
+    "created" : 1406985928363.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2363160808",
+    "id" : "93BE1A71",
+    "lastKnownWriteTime" : 1406990386,
+    "path" : "C:/R/Github/POC/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

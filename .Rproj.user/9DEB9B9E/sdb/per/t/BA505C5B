@@ -1,0 +1,16 @@
+{
+    "contents" : "cars <- read.csv('data/cars.csv')\np1 <- rCharts$new()\np2 <- rCharts$new()\n\n# specify location of parcoords library folder.\np2$setLib('libraries/widgets/parcoords')\np2$set(padding = list(top = 24, left = 0, bottom = 12, right = 200))\np2$set(\n  data = toJSONArray(cars, json = F), \n  colorby = 'economy', \n  range = range(cars$economy),\n  colors = c('steelblue', 'brown')\n)\n\n\n\nshinyServer(function(input, output,session) { \n  dsInput <- reactive({\n    if(!is.null(dat)){\n      datSK <- subset(dat,ProductSubFamily ==input$psf,select=c(1:3))\n    }    \n    return(datSK)\n  })\n  \n  fetchOPN <- reactive({\n    opnList<- dsInput()[,c(1:1)]\n  })\n  \n  fetchsubset <- reactive({\n    ds <- dsInput()\n    if(is.element('All', input$opn))\n    {\n      dssubset <- ds\n    }\n    else{\n      dssubset <- ds[which(ds$To %in% input$opn),]\n    }    \n\n    return(dssubset)\n  })\n  \n  observe({  \n    updateSelectizeInput(session, \"opn\",choices = c('All',fetchOPN()))     \n  })\n  \n  output$opngdview <- renderGvis({\n    input$goButton\n    isolate({\n    gvisSankey(fetchsubset(), from=\"From\", to=\"To\", weight=\"QTY\",\n                         options=list(\n                           height=800,\n                           sankey=\"{link: {color: { fill: '#d799ae' } },\n                           node: { color: { fill: '#a61d4c' },\n                           label: { color: '#871b47' } }}\"))\n    }) \n  })\n  \n  output$p2 <- renderChart2({\n    p2 <- rCharts$new()\n    p2$setLib('libraries/widgets/parcoords')\n    p2$set(padding = list(top = 24, left = 100, bottom = 12, right = 50))\n    p2$set(\n      data = toJSONArray(cars, json = F), \n      colorby = input$colorby, \n      range = range(cars[[input$colorby]]),\n      colors = c('steelblue', 'brown'),\n      width = 1400,\n      height = 900\n    )\n    p2\n  })\n  \n  \n  \n  selectedData <- renderText({ \n    paste(\"Selected:\", input$selected)\n  })\n  \n  #===\n  #===\n})\n",
+    "created" : 1406985870864.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1030951390",
+    "id" : "BA505C5B",
+    "lastKnownWriteTime" : 1406990135,
+    "path" : "C:/R/Github/POC/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

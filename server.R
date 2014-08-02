@@ -15,13 +15,11 @@ p2$set(
 
 
 shinyServer(function(input, output,session) { 
-  
   dsInput <- reactive({
-    
     if(!is.null(dat)){
       datSK <- subset(dat,ProductSubFamily ==input$psf,select=c(1:3))
-    }
-    
+    }    
+    return(datSK)
   })
   
   fetchOPN <- reactive({
@@ -37,11 +35,12 @@ shinyServer(function(input, output,session) {
     else{
       dssubset <- ds[which(ds$To %in% input$opn),]
     }    
+
     return(dssubset)
   })
   
   observe({  
-    updateCheckboxGroupInput(session, "opn",choices = c('All',fetchOPN()))     
+    updateSelectizeInput(session, "opn",choices = c('All',fetchOPN()))     
   })
   
   output$opngdview <- renderGvis({

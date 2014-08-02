@@ -1,5 +1,5 @@
 #this code alone will work
-
+# 
 # ui <- bootstrapPage(
 #   selectInput('colorby', 'Color By', c('economy', 'displacement')),
 #   chartOutput('p2', 'libraries/widgets/parcoords')
@@ -11,9 +11,8 @@ shinyUI(fluidPage(
                  tabsetPanel(
                    tabPanel('Gvis Sankey',sidebarLayout(               
                     sidebarPanel(
-                                selectInput("psf", "Choose a dataset:", choices = unique(dat$ProductSubFamily)),
-                                #checkboxGroupInput("opn", "Choose OPN:", choices = c('')),
-                                selectizeInput('opn', 'Choose OPN:', choices = c(''), multiple = TRUE),
+                                selectizeInput("psf", "Choose a dataset:", choices = c('',unique(dat$ProductSubFamily))),
+                                selectizeInput("opn", "Choose OPN:", choices = c(''),multiple = TRUE),
                                 actionButton("goButton", "Go!")
                               ),
                               mainPanel(htmlOutput('opngdview'))
