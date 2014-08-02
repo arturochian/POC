@@ -26,8 +26,7 @@ load.csv <- function (filename,foldername = NULL) {
 
 
 dat <<- load.csv('ps','data')
-data2 <<- load.csv('demandchange','data')
-data2$Date <- as.Date(data2$Date, format='%m/%d/%Y')
+
 src <- data.frame()
 
 
